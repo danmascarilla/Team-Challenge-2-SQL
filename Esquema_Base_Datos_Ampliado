@@ -1,0 +1,15 @@
+// Modelo de Relaciones (1:1, 1:N, N:N)
+digraph Esquema_Base_Datos_Ampliado {
+	rankdir=LR
+	proveedores [label="{ proveedores | id (PK)|nombre|direccion|... }" shape=record]
+	datos_contacto_proveedor [label="{ datos_contacto_proveedor | proveedor_id (PK, FK 1:1)|email_principal|telefono_principal }" shape=record]
+	categorias [label="{ categorias | id (PK)|nombre }" shape=record]
+	piezas [label="{ piezas | id (PK)|nombre|categoria_id (FK 1:N) }" shape=record]
+	suministros [label="{ suministros | id (PK)|proveedor_id (FK N:N)|pieza_id (FK N:N)|fecha_pedido|cantidad }" shape=record]
+	suministros_historico [label="{ suministros_historico | id (PK)|suministro_id (FK 1:N)|estado|fecha_cambio }" shape=record]
+	proveedores -> datos_contacto_proveedor [label="1:1" arrowhead=none arrowtail=none dir=both style=bold]
+	categorias -> piezas [label="1:N" arrowhead=crow arrowtail=none dir=forward]
+	suministros -> suministros_historico [label="1:N" arrowhead=crow arrowtail=none dir=forward]
+	proveedores -> suministros [label="1:N (N:N)" arrowhead=crow arrowtail=none dir=forward]
+	piezas -> suministros [label="1:N (N:N)" arrowhead=crow arrowtail=none dir=forward]
+}
